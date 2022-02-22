@@ -43,7 +43,6 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public Book GetById(int id)
         {
-
             var book = BookList.Where(x => x.Id == id).SingleOrDefault();
             return book;
         }
