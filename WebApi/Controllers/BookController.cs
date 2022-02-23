@@ -5,10 +5,11 @@ using System.Linq;
 using WebApi.DbOperations;
 using WebApi.BookOperations.GetBooks;
 using WebApi.BookOperations.CreateBook;
-using WebApi.GetById;
-using WebApi.UpdateBook;
+using WebApi.BookOperations.GetById;
 using WebApi.BookOperations.DeleteBook;
 using AutoMapper;
+using FluentValidation;
+using WebApi.BookOperations.UpdateBook;
 
 namespace WebApi.Controllers
 {
@@ -41,6 +42,8 @@ namespace WebApi.Controllers
             GetByIdCommand command = new(_context, _mapper);
             try
             {
+                GetByIdCommandValidator validator = new();
+                validator.ValidateAndThrow(id);
                 var result = command.Handle(id);
                 return Ok(result);
             }
@@ -67,6 +70,8 @@ namespace WebApi.Controllers
             try
             {
                 createBookCommand.Model = newBook;
+                CreateBookCommandValidator validator = new CreateBookCommandValidator();
+                validator.ValidateAndThrow(createBookCommand);
                 createBookCommand.Handle();
                 return Ok();
             }
@@ -87,7 +92,10 @@ namespace WebApi.Controllers
             UpdateBookCommand command = new(_context);
             try
             {
+                UpdateBookCommandValidator validator = new();
+                validator.ValidateAndThrow(updateBook);
                 command.Handle(id, updateBook);
+
                 return Ok();
 
             }
@@ -106,6 +114,8 @@ namespace WebApi.Controllers
             command.BookID = id;
             try
             {
+                DeleteBookCommandValidator validator = new();
+                validator.ValidateAndThrow(command);
                 command.Handle();
                 return Ok();
             }

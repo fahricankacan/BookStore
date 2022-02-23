@@ -4,7 +4,7 @@ using System;
 using static WebApi.BookOperations.GetBooks.GetBooksQuery;
 using AutoMapper;
 
-namespace WebApi.GetById
+namespace WebApi.BookOperations.GetById
 {
 
     public class GetByIdCommand
