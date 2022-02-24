@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebApi.DbOperations;
-using WebApi.BookOperations.GetBooks;
-using WebApi.BookOperations.CreateBook;
-using WebApi.BookOperations.GetById;
-using WebApi.BookOperations.DeleteBook;
+using WebApi.Application.BookOperations.Queries.GetBooks;
+using WebApi.Application.BookOperations.Command.CreateBook;
+using WebApi.Application.BookOperations.Queries.GetById;
+using WebApi.Application.BookOperations.Command.DeleteBook;
 using AutoMapper;
 using FluentValidation;
-using WebApi.BookOperations.UpdateBook;
+using WebApi.Application.BookOperations.Command.UpdateBook;
 
 namespace WebApi.Controllers
 {

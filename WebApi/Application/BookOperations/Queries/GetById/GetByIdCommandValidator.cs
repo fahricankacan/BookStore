@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace WebApi.BookOperations.GetById
+namespace WebApi.Application.BookOperations.Queries.GetById
 {
     public class GetByIdCommandValidator : AbstractValidator<int>
     {
