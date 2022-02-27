@@ -17,6 +17,25 @@ namespace WebApi.DbOperations
                 {
                     return;
                 }
+                context.Authors.AddRange(
+                    new Author
+                    {
+                        Name = "Eric",
+                        Surname = "Ries",
+                        Birthday = new DateTime(1978, 9, 22)
+                    },
+                new Author
+                {
+                    Name = "Charlotte Perkins",
+                    Surname = "Gilman",
+                    Birthday = new DateTime(1980, 7, 3)
+                },
+                new Author
+                {
+                    Name = "Frank",
+                    Surname = "Helbert",
+                    Birthday = new DateTime(1920, 10, 8)
+                });
                 context.Genres.AddRange
                 (
                     new Genre
@@ -38,6 +57,7 @@ namespace WebApi.DbOperations
                     Title = "Lean Startup",
                     GenreId = 1,
                     PageCount = 200,
+                    AuthorId = 1,
                     PublishDate = new System.DateTime(2001, 06, 12)
                 },
                 new Book
@@ -46,6 +66,7 @@ namespace WebApi.DbOperations
                     Title = "Herland",
                     GenreId = 2,
                     PageCount = 250,
+                    AuthorId = 2,
                     PublishDate = new System.DateTime(2010, 05, 23)
                 },
                 new Book
@@ -54,6 +75,7 @@ namespace WebApi.DbOperations
                     Title = "Dune",
                     GenreId = 2,
                     PageCount = 540,
+                    AuthorId = 3,
                     PublishDate = new System.DateTime(2001, 12, 21)
                 });
 

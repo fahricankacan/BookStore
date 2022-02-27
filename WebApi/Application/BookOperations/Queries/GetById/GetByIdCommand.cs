@@ -22,7 +22,7 @@ namespace WebApi.Application.BookOperations.Queries.GetById
 
         public BookViewModel Handle(int id)
         {
-            var result = _dbContext.Books.Include(x => x.Genre).FirstOrDefault(x => x.Id == id);
+            var result = _dbContext.Books.Include(x => x.Genre).Include(x => x.Author).FirstOrDefault(x => x.Id == id);
             if (result is null)
                 throw new InvalidOperationException("Kitap bulunamadı.");
 
