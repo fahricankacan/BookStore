@@ -41,6 +41,7 @@ namespace WebApi
             services.AddDbContext<BookStoreDbContext>(options => options.UseInMemoryDatabase(databaseName: "BookStoreDb"));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             #region  services
+            services.AddScoped<IBookStoreDbContext>(provider => provider.GetService<BookStoreDbContext>());//yukarıda olan servisi çağırır
             services.AddSingleton<ILoggerService, ConsoleLogger>();
             services.AddSingleton<ILoggerService, DBLogger>();
             #endregion

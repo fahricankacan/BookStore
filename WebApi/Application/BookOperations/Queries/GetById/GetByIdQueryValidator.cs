@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace WebApi.Application.BookOperations.Queries.GetById
 {
-    public class GetByIdCommandValidator : AbstractValidator<int>
+    public class GetByIdQueryValidator : AbstractValidator<int>
     {
-        public GetByIdCommandValidator()
+        public GetByIdQueryValidator()
         {
             RuleFor(command => command).GreaterThan(0);
         }

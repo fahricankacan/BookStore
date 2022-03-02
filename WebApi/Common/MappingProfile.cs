@@ -14,7 +14,7 @@ namespace WebApi.Common
 
         public MappingProfile()
         {
-            CreateMap<CreateBookModel, Book>();
+            CreateMap<CreateBookViewModel, Book>();
             CreateMap<Book, BookViewModel>()
             .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name))
             .ForMember(dest => dest.Auther, opt => opt.MapFrom(src => src.Author.Name + src.Author.Surname));

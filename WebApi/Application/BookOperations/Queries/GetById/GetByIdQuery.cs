@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 namespace WebApi.Application.BookOperations.Queries.GetById
 {
 
-    public class GetByIdCommand
+    public class GetByIdQuery
     {
 
-        private readonly BookStoreDbContext _dbContext;
+        private readonly IBookStoreDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public GetByIdCommand(BookStoreDbContext dbContext, IMapper mapper)
+        public GetByIdQuery(IBookStoreDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;

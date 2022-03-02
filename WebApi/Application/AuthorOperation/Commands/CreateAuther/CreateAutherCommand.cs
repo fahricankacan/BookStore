@@ -11,9 +11,9 @@ namespace WebApi.Application.AuthorOperation.Command.CreateAuther
     public class CreateAutherCommand
     {
         public CreateAutherViewModel Model { get; set; }
-        private readonly BookStoreDbContext _dbContext;
+        private readonly IBookStoreDbContext _dbContext;
 
-        public CreateAutherCommand(BookStoreDbContext dbContext)
+        public CreateAutherCommand(IBookStoreDbContext dbContext)
         {
             _dbContext = dbContext;
         }

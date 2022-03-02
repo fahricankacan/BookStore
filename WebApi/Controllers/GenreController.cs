@@ -15,10 +15,10 @@ namespace WebApi.Controllers
     [Route("[controller]s")]
     public class GenreController : ControllerBase
     {
-        private readonly BookStoreDbContext _context;
+        private readonly IBookStoreDbContext _context;
         private readonly IMapper _mapper;
 
-        public GenreController(BookStoreDbContext dbContext, IMapper mapper)
+        public GenreController(IBookStoreDbContext dbContext, IMapper mapper)
         {
             _context = dbContext;
             _mapper = mapper;
@@ -46,7 +46,7 @@ namespace WebApi.Controllers
 
 
         [HttpPost]
-        public IActionResult AddBook([FromBody] CreateGenreModel genre)
+        public IActionResult AddBook([FromBody] CreateGenreViewModel genre)
         {
             CreateGenreCommand createGenreCommand = new(_context);
             createGenreCommand.Model = genre;
@@ -62,7 +62,7 @@ namespace WebApi.Controllers
             UpdateGenreCommand command = new(_context);
             command.Id = id;
             command.Model = updateGenre;
-            UpdateGenreCommandValidator validator = new();
+            UpdateGenreCommandValidator validator = new(id);
             validator.ValidateAndThrow(command);
             command.Handle();
             return Ok();

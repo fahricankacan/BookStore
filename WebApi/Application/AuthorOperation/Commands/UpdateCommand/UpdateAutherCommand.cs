@@ -9,9 +9,9 @@ namespace WebApi.Application.AuthorOperation.Command.UpdateAuther
 
         public int ModelId { get; set; }
         public UpdateAutherViewModel Model { get; set; }
-        private readonly BookStoreDbContext _dbContext;
+        private readonly IBookStoreDbContext _dbContext;
 
-        public UpdateAutherCommand(BookStoreDbContext dbContext)
+        public UpdateAutherCommand(IBookStoreDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -21,7 +21,7 @@ namespace WebApi.Application.AuthorOperation.Command.UpdateAuther
             var auther = _dbContext.Authors.SingleOrDefault(p => p.Id == ModelId);
 
             if (auther is null)
-                throw new InvalidOperationException("Yazar bulunamadı");
+                throw new InvalidOperationException("Yazar bulunamadı.");
 
             auther.Name = Model.Name;
             auther.Surname = Model.Surname;

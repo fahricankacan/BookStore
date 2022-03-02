@@ -10,10 +10,10 @@ namespace WebApi.Application.GenreOperations.Command.UpdateGenre
     {
         public int Id { get; set; }
         public UpdateGenreModel Model { get; set; }
-        private readonly BookStoreDbContext _dbContext;
+        private readonly IBookStoreDbContext _dbContext;
 
 
-        public UpdateGenreCommand(BookStoreDbContext dbContext)
+        public UpdateGenreCommand(IBookStoreDbContext dbContext)
         {
             _dbContext = dbContext;
 
@@ -34,10 +34,9 @@ namespace WebApi.Application.GenreOperations.Command.UpdateGenre
 
             genre.Name = Model.Name.Trim() != default ? Model.Name : genre.Name;
             genre.IsActive = Model.IsActive;
-            _dbContext.Update(genre);
+            _dbContext.Genres.Update(genre);
             _dbContext.SaveChanges();
         }
-
     }
     public class UpdateGenreModel
     {

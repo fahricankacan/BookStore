@@ -9,9 +9,9 @@ namespace WebApi.Application.AuthorOperation.DeleteCommand
     public class DeleteAutherCommand
     {
         public int ModelId { get; set; }
-        private readonly BookStoreDbContext _dbContext;
+        private readonly IBookStoreDbContext _dbContext;
 
-        public DeleteAutherCommand(BookStoreDbContext dbContext)
+        public DeleteAutherCommand(IBookStoreDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -19,6 +19,8 @@ namespace WebApi.Application.AuthorOperation.DeleteCommand
         public void Handle()
         {
             var auther = _dbContext.Authors.SingleOrDefault(p => p.Id == ModelId);
+            if (auther is null)
+                throw new InvalidOperationException("Yazar bulunamadı.");
             bool IsAuthorHaveBook = _dbContext.Books.Include(x => x.Author).Any(p => p.Author.Id == ModelId);
             if (IsAuthorHaveBook is true)
             {

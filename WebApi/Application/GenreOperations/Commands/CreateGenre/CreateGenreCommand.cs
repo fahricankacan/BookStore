@@ -6,10 +6,10 @@ namespace WebApi.Application.GenreOperations.Command.CreateGenre
 {
     public class CreateGenreCommand
     {
-        public CreateGenreModel Model { get; set; }
-        private readonly BookStoreDbContext _dbContext;
+        public CreateGenreViewModel Model { get; set; }
+        private readonly IBookStoreDbContext _dbContext;
 
-        public CreateGenreCommand(BookStoreDbContext dbContext)
+        public CreateGenreCommand(IBookStoreDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -17,8 +17,8 @@ namespace WebApi.Application.GenreOperations.Command.CreateGenre
         public void Handle()
         {
             var genre = _dbContext.Genres.SingleOrDefault(x => x.Name == Model.Name);
-            if (genre is not null)
-                throw new InvalidOperationException("Genre zaten mevcut");
+            if (genre is null)
+                throw new InvalidOperationException("Tür zaten mevcut.");
 
             _dbContext.Genres.Add(new Entities.Genre
             {
@@ -28,7 +28,7 @@ namespace WebApi.Application.GenreOperations.Command.CreateGenre
         }
     }
 
-    public class CreateGenreModel
+    public class CreateGenreViewModel
     {
         public string Name { get; set; }
     }

@@ -10,11 +10,11 @@ namespace WebApi.Application.BookOperations.Command.CreateBook
     public class CreateBookCommand
     {
 
-        public CreateBookModel Model { get; set; }
-        private readonly BookStoreDbContext _dbContext;
+        public CreateBookViewModel Model { get; set; }
+        private readonly IBookStoreDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public CreateBookCommand(BookStoreDbContext dbContext, IMapper mapper)
+        public CreateBookCommand(IBookStoreDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
@@ -36,14 +36,14 @@ namespace WebApi.Application.BookOperations.Command.CreateBook
             //     PublishDate = Model.PublishDate,
             //     Title = Model.Title,
             // };
-            _dbContext.Add(book);
+            _dbContext.Books.Add(book);
             _dbContext.SaveChanges();
 
         }
 
     }
 
-    public class CreateBookModel
+    public class CreateBookViewModel
     {
         public string Title { get; set; }
         public int GenreId { get; set; }
@@ -51,5 +51,9 @@ namespace WebApi.Application.BookOperations.Command.CreateBook
         public int AuthorId { get; set; }
         public DateTime PublishDate { get; set; }
 
+        public static implicit operator string(CreateBookViewModel v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

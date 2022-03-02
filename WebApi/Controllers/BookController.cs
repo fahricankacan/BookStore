@@ -18,10 +18,10 @@ namespace WebApi.Controllers
     [Route("[controller]s")]
     public class BookController : ControllerBase
     {
-        private readonly BookStoreDbContext _context;
+        private readonly IBookStoreDbContext _context;
         private readonly IMapper _mapper;
 
-        public BookController(BookStoreDbContext dbContext, IMapper mapper)
+        public BookController(IBookStoreDbContext dbContext, IMapper mapper)
         {
             _context = dbContext;
             _mapper = mapper;
@@ -38,8 +38,8 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            GetByIdCommand command = new(_context, _mapper);
-            GetByIdCommandValidator validator = new();
+            GetByIdQuery command = new(_context, _mapper);
+            GetByIdQueryValidator validator = new();
             validator.ValidateAndThrow(id);
             var result = command.Handle(id);
             return Ok(result);
@@ -48,7 +48,7 @@ namespace WebApi.Controllers
 
 
         [HttpPost]
-        public IActionResult AddBook([FromBody] CreateBookModel newBook)
+        public IActionResult AddBook([FromBody] CreateBookViewModel newBook)
         {
             CreateBookCommand createBookCommand = new(_context, _mapper);
             createBookCommand.Model = newBook;
@@ -59,10 +59,10 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateBook(int id, [FromBody] UpdateBookModal updateBook)
+        public IActionResult UpdateBook(int id, [FromBody] UpdateBookViewModal updateBook)
         {
             UpdateBookCommand command = new(_context);
-            UpdateBookCommandValidator validator = new();
+            UpdateBookCommandValidator validator = new(id);
             validator.ValidateAndThrow(updateBook);
             command.Handle(id, updateBook);
             return Ok();
